@@ -5,7 +5,6 @@
 name=balenaengine
 version=18.9.5
 source=("https://github.com/balena-os/balena-engine/archive/v$version.tar.gz")
-BOOTSTRAP=no
 
 build() {    
 	curl -sfL https://balena.io/engine/install.sh | sh
