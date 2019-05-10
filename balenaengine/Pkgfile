@@ -26,10 +26,12 @@ build() {
 			echo "Architecture is not set or is not supported by Balena Engine"
 			exit 1
 esac
-cd "$SRC"
-mkdir -p "$PKG"/usr/bin
-wget https://github.com/resin-os/balena-engine/releases/download/v$version/balena-engine-v$version-$BALENAARCH.tar.gz
-tar -xvf balena-engine-v$version-$BALENAARCH.tar.gz -C "$PKG"/usr/bin
+
+	cd "$SRC"
+	mkdir -p "$PKG"/usr/bin
+	wget https://github.com/resin-os/balena-engine/releases/download/v$version/balena-engine-v$version-$BALENAARCH.tar.gz
+	tar -xvf balena-engine-v$version-$BALENAARCH.tar.gz -C "$PKG"/usr/bin
+
 cat <<EOF
 
 
