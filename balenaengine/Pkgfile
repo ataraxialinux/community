@@ -3,9 +3,45 @@
 # Maintainer:  TheOrangeCat, vdos63 at gmail dot com
 
 name=balenaengine
-version=18.9.5
-source=("https://github.com/balena-os/balena-engine/archive/v$version.tar.gz")
+version=17.12.0
 
-build() {    
-	curl -sfL https://balena.io/engine/install.sh | sh
+build() {
+	case $BARCH in
+		x86_64)
+			export BALENAARCH="x86_64"
+			;;
+		i586)
+			export BALENAARCH="i386"
+			;;
+		aarch64)
+			export BALENAARCH="aarch64"
+			;;
+		armv7l)
+			export BALENAARCH="armv7"
+			;;
+		armv6l)
+			export BALENAARCH="armv6"
+			;;
+		*)
+			echo "Architecture is not set or is not supported by Balena Engine"
+			exit 1
+esac
+cd "$SRC"
+mkdir -p "$PKG"/usr/bin
+wget https://github.com/resin-os/balena-engine/releases/download/v$version/balena-engine-v$version-$BALENAARCH.tar.gz
+tar -xvf balena-engine-v$version-$BALENAARCH.tar.gz -C "$PKG"/usr/bin
+cat <<EOF
+
+
+   Installation successful!
+ _           _
+| |__   __ _| | ___ _ __   __ _
+| '_ \\ / _\` | |/ _ \\ '_ \ / _\` |
+| |_) | (_| | |  __/ | | | (_| |
+|_.__/ \__,_|_|\___|_| |_|\__,_|
+
+the container engine for the IoT
+EOF
+
 }
+
