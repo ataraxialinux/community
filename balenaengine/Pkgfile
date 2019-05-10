@@ -1,6 +1,6 @@
 # Description: An engine purpose-built for embedded and IoT use cases, based on Moby Project technology from Docker
 # URL:         https://www.balena.io/engine/
-# Maintainer:  TheOrangeCat, vdos63@gmail.com
+# Maintainer:  TheOrangeCat, vdos63 at gmail dot com
 
 name=balenaengine
 version=18.9.5
