@@ -1,0 +1,12 @@
+# Description: An engine purpose-built for embedded and IoT use cases, based on Moby Project technology from Docker
+# URL:         https://www.balena.io/engine/
+# Maintainer:  TheOrangeCat, vdos63@gmail.com
+
+name=balenaengine
+version=18.9.5
+source=("https://github.com/balena-os/balena-engine/archive/v$version.tar.gz")
+BOOTSTRAP=no
+
+build() {    
+	curl -sfL https://balena.io/engine/install.sh | sh
+}
