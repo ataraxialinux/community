@@ -1,1 +1,15 @@
+# Description: a simple and raw package manager
+# URL:         https://github.com/TheOrangeCat/kot-pkg
+# Maintainer:  TheOrangeCat, vdos63 at gmail dot com
 
+name=kot-pkg
+version=0.07
+
+build() {
+	mkdir /kot-pkg
+  mkdir /kot-pkg/pkgs
+  mkdir /kot-pkg/subroutines
+  wget https://raw.githubusercontent.com/TheOrangeCat/kot-pkg/master/kot-pkg -O /kot-pkg/kot-pkg
+  chmod 777 /kot-pkg/kot-pkg
+  echo "export PATH="$PATH":/kot-pkg:/kot-pkg/pkgs" > /etc/profile
+}
