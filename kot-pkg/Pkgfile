@@ -1,0 +1,14 @@
+# Description: A simple, raw package manager
+# URL:         https://github.com/TheOrangeCat/kot-pkg
+# Maintainer:  MrSenshi, MrSenshi at disroot dot org
+# Maintainer:  TheOrangeCat, vdos63 at gmail dot com
+
+name=kot-pkg
+version=0.07
+release=1
+source=("https://github.com/TheOrangeCat/kot-pkg/archive/v${version}-${release}.tar.gz")
+
+build() {
+    mv $SRC/master/* $PKG/kot-pkg/
+    chmod 777 $PKG/kot-pkg/kot-pkg
+}

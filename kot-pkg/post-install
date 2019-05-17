@@ -1,0 +1,1 @@
+echo "export PATH="$PATH":/kot-pkg:/kot-pkg/pkgs" > /etc/profile.d/99-kot-pkg
