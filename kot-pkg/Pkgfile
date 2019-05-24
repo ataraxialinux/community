@@ -4,9 +4,9 @@
 # Maintainer:  TheOrangeCat, vdos63 at gmail dot com
 
 name=kot-pkg
-version=0.07
+version=0.10
 release=1
-source=("https://github.com/TheOrangeCat/kot-pkg/archive/v${version}-${release}.tar.gz")
+source=("https://github.com/TheOrangeCat/kot-pkg/releases/download/v$version/kot-pkg-v$version.tar.gz")
 
 build() {
     mv $SRC/master/* $PKG/kot-pkg/
