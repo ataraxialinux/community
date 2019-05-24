@@ -5,10 +5,10 @@
 
 name=kot-pkg
 version=0.10
-release=1
+release=0
 source=("https://github.com/TheOrangeCat/kot-pkg/releases/download/v$version/kot-pkg-v$version.tar.gz")
 
 build() {
-    mv $SRC/master/* $PKG/kot-pkg/
+    mv $SRC/* $PKG/kot-pkg/
     chmod 777 $PKG/kot-pkg/kot-pkg
 }
