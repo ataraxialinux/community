@@ -46,4 +46,6 @@ source=("https://github.com/neovim/neovim/archive/v$version.tar.gz")
 	install -Dm644 runtime/nvim.png "$PKG"/usr/share/pixmaps/nvim.png
 	alias vim="nvim"
 	alias vi="nvim"
+	echo "alias vim='nvim'" >> /etc/profile
+	echo "alias vi='nvim'" >> /etc/profile
 }
