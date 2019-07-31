@@ -1,0 +1,42 @@
+# Description: C language family frontend for LLVM (for Motorola 68000)
+# URL:         https://clang.llvm.org/
+# Maintainer:  protonesso, nagakamira at gmail dot com
+# Depends on:  cmake ninja llvm compiler-rt
+# Section:     devel
+
+name=clang
+branch=M680x0
+version=8.0.0
+release=1
+source=("https://github.com/M680x0/M680x0-clang/archive/$branch.zip")
+
+build() {
+	cd "$SRC"/M680x0-clang-$branch
+	patch -Np1 -i "$SRC"/0001-add-musl-triplets.patch
+	patch -Np1 -i "$SRC"/0001-Add-support-for-Ataraxia-Linux.patch
+
+	mkdir build
+	cd build
+	cmake "$SRC"/M680x0-clang-$branch \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=MinSizeRel \
+		-DPYTHON_EXECUTABLE=/usr/bin/python \
+		-DCLANG_VENDOR=AtaraxiaLinux \
+		-DCLANG_BUILD_EXAMPLES=OFF \
+		-DCLANG_INCLUDE_DOCS=OFF \
+		-DCLANG_INCLUDE_TESTS=OFF \
+		-DCLANG_PLUGIN_SUPPORT=ON \
+		-DLIBCLANG_BUILD_STATIC=ON \
+		-DLLVM_ENABLE_EH=ON \
+		-DLLVM_ENABLE_RTTI=ON \
+		-DLLVM_MAIN_SRC_DIR="$SRC"/M680x0-llvm \
+		-Wno-dev -G Ninja
+	ninja
+	DESTDIR="$PKG" ninja install
+
+	install -m 644 lib/libclang.a "$PKG"/usr/lib
+
+	mv "$PKG"/usr/libexec/{ccc,c++}-analyzer "$PKG"/usr/lib/clang/
+	rmdir "$PKG"/usr/libexec
+	sed -i 's|libexec|lib/clang|' "$PKG"/usr/bin/scan-build
+}

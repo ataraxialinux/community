@@ -1,0 +1,45 @@
+# Description: Collection of modular and reusable compiler and toolchain technologies (for Motorola 68000)
+# URL:         https://llvm.org/
+# Maintainer:  protonesso, nagakamira at gmail dot com
+# Depends on:  zlib binutils cmake python ninja libffi
+# Section:     devel
+
+name=llvm
+branch=M680x0
+version=8.0.0
+release=1
+source=("https://github.com/M680x0/M680x0-llvm/archive/$branch.zip")
+
+build() {
+	cd "$SRC"/M680x0-llvm-$branch
+	mkdir build
+	cd build
+	cmake "$SRC"/M680x0-llvm \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=MinSizeRel \
+		-DFFI_INCLUDE_DIR=$(pkg-config --variable=includedir libffi) \
+		-DLLVM_BINUTILS_INCDIR=/usr/include \
+		-DLLVM_BUILD_DOCS=OFF \
+		-DLLVM_BUILD_EXAMPLES=OFF \
+		-DLLVM_BUILD_LLVM_DYLIB=ON \
+		-DLLVM_BUILD_TESTS=OFF \
+		-DLLVM_DEFAULT_TARGET_TRIPLE="$(cc -dumpmachine)" \
+		-DLLVM_ENABLE_CXX1Y=ON \
+		-DLLVM_ENABLE_FFI=ON \
+		-DLLVM_ENABLE_LIBCXX=OFF \
+		-DLLVM_ENABLE_PIC=ON \
+		-DLLVM_ENABLE_RTTI=ON \
+		-DLLVM_ENABLE_SPHINX=OFF \
+		-DLLVM_ENABLE_TERMINFO=ON \
+		-DLLVM_ENABLE_ZLIB=ON \
+		-DLLVM_HOST_TRIPLE="$(cc -dumpmachine)" \
+		-DLLVM_INCLUDE_EXAMPLES=OFF \
+		-DLLVM_INSTALL_UTILS=ON \
+		-DLLVM_LINK_LLVM_DYLIB=ON \
+		-DLLVM_TARGETS_TO_BUILD="host;AMDGPU;BPF" \
+		-Wno-dev -G Ninja
+	ninja
+	DESTDIR="$PKG" ninja install
+
+	python3 ../utils/lit/setup.py install --prefix=/usr --root="$PKG"
+}
