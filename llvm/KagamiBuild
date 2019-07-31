@@ -12,6 +12,8 @@ source=("https://github.com/M680x0/M680x0-llvm/archive/$branch.zip")
 
 build() {
 	cd "$SRC"/M680x0-llvm-$branch
+	sed -i 's,m68k-unknown-linux-gnu,m68k-linux-musl,g' cmake/modules/HandleLLVMOptions.cmake
+
 	mkdir build
 	cd build
 	cmake "$SRC"/M680x0-llvm \

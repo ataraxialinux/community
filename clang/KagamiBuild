@@ -15,6 +15,8 @@ build() {
 	patch -Np1 -i "$SRC"/0001-add-musl-triplets.patch
 	patch -Np1 -i "$SRC"/0001-Add-support-for-Ataraxia-Linux.patch
 
+	sed -i 's,m68k-unknown-linux-gnu,m68k-linux-musl,g' "$SRC"/M680x0-llvm/cmake/modules/HandleLLVMOptions.cmake
+
 	mkdir build
 	cd build
 	cmake "$SRC"/M680x0-clang-$branch \
